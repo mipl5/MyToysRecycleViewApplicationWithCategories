@@ -9,10 +9,9 @@ public class Category extends BaseEntity {
         /*empty space*/
     }
 
-    public Category(String name, String ageRange, String picture){
+    public Category(String name, String ageRange){
         this.name = name;
         this.ageRange = ageRange;
-        this.picture = picture;
     }
 
     public String getName(){
