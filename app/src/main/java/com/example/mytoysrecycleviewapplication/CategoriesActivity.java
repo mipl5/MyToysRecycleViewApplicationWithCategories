@@ -11,16 +11,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.model.Categories;
 import com.example.model.Category;
 
+import michael.co.viewmodel.ToyCategoryViewModel;
+
 public class CategoriesActivity extends AppCompatActivity {
     private RecyclerView rvCategories;
     private CategoriesAdapter adapter;
-    private Categories categories;
+    private ToyCategoryViewModel toyCategoryViewModel;
     private Toolbar toolbar;
     private EditText etSearchCategory;
     private ImageButton ivV;
@@ -38,20 +41,24 @@ public class CategoriesActivity extends AppCompatActivity {
         });
 
         initializeViews();
-        getAllCategories();
+        setupViewModel();
+
         setRecyclerView();
     }
 
     private void setRecyclerView() {
-        adapter = new CategoriesAdapter(this, categories, R.layout.category_single_layout);
+        adapter = new CategoriesAdapter(this, null, R.layout.category_single_layout);
         rvCategories.setAdapter(adapter);
         rvCategories.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void getAllCategories() {
-        categories = new Categories();
-        categories.add(new Category("cars", "9+"));
-        categories.add(new Category("dolls", "0+"));
+    private void setupViewModel(){
+        toyCategoryViewModel = new ViewModelProvider(this).get(ToyCategoryViewModel.class);
+        toyCategoryViewModel.getToyCategoriesLiveData().observe(
+                this, categories -> {
+                    adapter.setToyCategories(categories);
+                }
+        );
     }
 
     private void initializeViews() {

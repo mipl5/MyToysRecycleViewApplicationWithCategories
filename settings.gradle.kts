@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "MyToysRecycleViewApplication"
 include(":app")
 include(":MODEL")
+include(":VIEWMODEL")

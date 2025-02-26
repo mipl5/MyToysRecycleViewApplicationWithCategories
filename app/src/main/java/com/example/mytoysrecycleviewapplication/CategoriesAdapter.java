@@ -1,5 +1,6 @@
 package com.example.mytoysrecycleviewapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         this.context = context;
         this.categories = categories;
         this.single_layout = single_layout;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setToyCategories(Categories categories){
+        this.categories = categories;
+        notifyDataSetChanged();
     }
 
     @NonNull
