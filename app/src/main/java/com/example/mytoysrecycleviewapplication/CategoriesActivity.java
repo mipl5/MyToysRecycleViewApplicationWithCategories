@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.model.Categories;
 import com.example.model.Category;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import michael.co.viewmodel.ToyCategoryViewModel;
 
@@ -28,6 +30,7 @@ public class CategoriesActivity extends AppCompatActivity {
     private EditText etSearchCategory;
     private ImageButton ivV;
     private ImageButton ivX;
+    private FloatingActionButton fabAddCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +69,12 @@ public class CategoriesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         rvCategories = (RecyclerView)findViewById(R.id.rvCategories);
         etSearchCategory = (EditText)findViewById(R.id.etSearchCategory);
+        etSearchCategory.setVisibility(ConstraintLayout.GONE);
         ivV = (ImageButton)findViewById(R.id.ivV);
+        ivV.setVisibility(ConstraintLayout.GONE);
         ivX = (ImageButton)findViewById(R.id.ivX);
+        ivX.setVisibility(ConstraintLayout.GONE);
+        fabAddCategory = (FloatingActionButton)findViewById(R.id.fabAddCategory);
         setOnClickListeners();
     }
 
@@ -75,13 +82,22 @@ public class CategoriesActivity extends AppCompatActivity {
         ivV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // finds if it exists by name, not asked to do so.
+                toyCategoryViewModel.add(new Category(etSearchCategory.getText().toString()));
+                etSearchCategory.setText("");
             }
         });
         ivX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                etSearchCategory.setText("");
+                toyCategoryViewModel.removeLast();
+            }
+        });
+        fabAddCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivV.setVisibility(ConstraintLayout.VISIBLE);
+                ivX.setVisibility(ConstraintLayout.VISIBLE);
+                etSearchCategory.setVisibility(ConstraintLayout.VISIBLE);
             }
         });
     }
