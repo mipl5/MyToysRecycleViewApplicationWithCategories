@@ -7,6 +7,7 @@ import com.example.model.Categories;
 import com.example.model.Category;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class ToyCategoryViewModel extends ViewModel {
     private Categories categories;
@@ -29,8 +30,18 @@ public class ToyCategoryViewModel extends ViewModel {
         toyCategoriesLiveData.setValue(categories);
     }
 
-    public void removeLast(){
-        categories.remove(categories.size() - 1);
-        toyCategoriesLiveData.setValue(categories);
+    public void remove(String name){
+        int index = getIndexCategory(name);
+        if (index != -1) {
+            categories.remove(index);
+            toyCategoriesLiveData.setValue(categories);
+        }
+    }
+    
+    public int getIndexCategory(String name){
+        for (int i = 0; i < categories.size(); i++)
+            if (Objects.equals(categories.get(i).getName(), name))
+                return i;
+        return -1;
     }
 }
