@@ -90,6 +90,7 @@ public class CategoriesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 toyCategoryViewModel.remove(etSearchCategory.getText().toString());
+                etSearchCategory.setText("");
             }
         });
         fabAddCategory.setOnClickListener(new View.OnClickListener() {
