@@ -89,7 +89,7 @@ public class CategoriesActivity extends AppCompatActivity {
         ivX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toyCategoryViewModel.removeLast();
+                toyCategoryViewModel.remove(etSearchCategory.getText().toString());
             }
         });
         fabAddCategory.setOnClickListener(new View.OnClickListener() {
