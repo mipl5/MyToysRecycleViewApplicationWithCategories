@@ -14,6 +14,11 @@ public class Category extends BaseEntity {
         this.ageRange = ageRange;
     }
 
+    public Category(String name){
+        this.name = name;
+        this.ageRange = "0+";
+    }
+
     public String getName(){
         return this.name;
     }
